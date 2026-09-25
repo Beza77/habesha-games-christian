@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="am">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Noto+Sans+Ethiopic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Worship Song Bingo</title>
+  <style>
+    :root{
+      color-scheme:light dark;
+      --bg:#f7efe2;--paper:#fffaf2;--ink:#1f2d24;--muted:#657269;--green:#24563c;--green-2:#173d2a;
+      --gold:#d6a035;--gold-soft:#f3d999;--red:#b84737;--line:#d9cdbb;--mark:#dcebdd;--shadow:0 12px 30px rgba(45,35,20,.12);
+      --sans:"Noto Sans Ethiopic","Cabin",sans-serif;
+    }
+    @media(prefers-color-scheme:dark){:root{--bg:#121b16;--paper:#1c2821;--ink:#f7f0e6;--muted:#b9c5bd;--green:#78b68d;--green-2:#a6d7b7;--gold:#efc665;--gold-soft:#6c5525;--red:#ed806c;--line:#3a4b40;--mark:#294d35;--shadow:0 14px 34px rgba(0,0,0,.3)}}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);min-height:100vh;-webkit-tap-highlight-color:transparent}
+    button{font:inherit}button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.shell{width:min(100%,980px);margin:0 auto;padding:18px clamp(12px,3vw,28px) 42px}
+    .intro{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:8px 0 14px}.intro h1{font-size:clamp(25px,5vw,40px);line-height:1.12;margin:0;color:var(--green-2);font-weight:800;letter-spacing:-.02em}.intro p{margin:6px 0 0;color:var(--muted);font-size:13px}.catalog-count{white-space:nowrap;background:var(--gold-soft);color:#493713;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}
+    @media(prefers-color-scheme:dark){.catalog-count{color:#fff2c9}}
+    .lane{font-family:"Cabin",sans-serif;font-size:.78em;font-weight:600;color:var(--muted);margin-left:.35em}.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border:1px solid var(--line);padding:5px;border-radius:14px;box-shadow:var(--shadow);margin-bottom:16px}.tab{min-height:54px;border:0;background:transparent;color:var(--muted);border-radius:10px;font-weight:800;cursor:pointer}.tab[aria-selected="true"]{background:var(--green);color:#fff}.tab .en{display:block;font-family:"Cabin",sans-serif;font-size:11px;font-weight:600;opacity:.8;margin-top:1px}
+    .view[hidden]{display:none}.notice{display:flex;gap:10px;align-items:center;margin:0 0 14px;color:var(--muted);font-size:13px}.notice svg{flex:0 0 auto;color:var(--gold)}
+    .board-wrap{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(8px,2.5vw,16px);box-shadow:var(--shadow)}.board-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.round-status{font-size:13px;color:var(--muted)}.round-status strong{color:var(--ink)}
+    .secondary{min-height:44px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}.secondary:hover{background:var(--mark)}
+    .language-switch{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px;padding:9px 10px;background:var(--bg);border-radius:10px}.language-label{font-size:12px;color:var(--muted);font-weight:700}.language-buttons{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:3px}.language-buttons button{min-height:36px;border:0;border-radius:6px;padding:5px 10px;background:transparent;color:var(--muted);font-size:12px;font-weight:800;cursor:pointer}.language-buttons button[aria-pressed="true"]{background:var(--green);color:#fff}
+    .letters,.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(5px,1.2vw,10px)}.letters{margin-bottom:7px}.letters span{text-align:center;color:var(--green-2);font-family:"Cabin",sans-serif;font-weight:800;font-size:clamp(18px,5vw,28px);letter-spacing:.08em}.cell{position:relative;min-width:0;min-height:clamp(112px,20vw,165px);border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);padding:12px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;overflow:hidden;font-size:clamp(15px,2.4vw,21px);line-height:1.25;font-weight:700;word-break:normal;overflow-wrap:break-word}.cell-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden;max-width:100%}.cell .artist{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;max-width:100%;font-family:var(--sans);color:var(--muted);font-size:clamp(10px,1.4vw,13px);line-height:1.2;margin-top:8px;font-weight:600;word-break:normal;overflow-wrap:break-word}.credit-label{display:block;font-size:.78em;font-weight:700;opacity:.85;margin-bottom:2px}.cell[aria-pressed="true"]{background:var(--mark);border:2px solid var(--green);color:var(--green-2)}.cell[aria-pressed="true"]::after{content:"✓";position:absolute;right:6px;top:3px;color:var(--green);font-size:18px;font-weight:900}.cell.free{background:var(--gold-soft);color:#493713;border-color:var(--gold);font-size:clamp(13px,3.5vw,18px)}.cell.free::before{content:"✦";font-size:1.45em;line-height:1}.cell.free .artist{color:inherit}
+    @media(prefers-color-scheme:dark){.cell.free{color:#fff1c2}}
+    .hint{text-align:center;margin:12px 0 0;color:var(--muted);font-size:12px}.caller{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:16px}.draw-stage,.history{background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.draw-stage{padding:clamp(20px,5vw,38px);min-height:360px;display:flex;flex-direction:column;justify-content:center;text-align:center}.draw-kicker{color:var(--red);font-weight:800;font-size:14px;margin:0 0 12px}.called-title{font-size:clamp(28px,6vw,52px);line-height:1.15;letter-spacing:-.02em;margin:0;color:var(--green-2);overflow-wrap:anywhere}.called-artist{font-family:"Cabin",sans-serif;color:var(--muted);font-size:clamp(16px,3vw,21px);margin:10px 0 22px}.empty-state{font-size:clamp(22px,5vw,36px)}.draw-btn{min-height:64px;border:0;border-radius:12px;background:var(--red);color:#fff;font-weight:800;font-size:18px;padding:14px 22px;cursor:pointer;box-shadow:0 5px 0 #7d2d22}.draw-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #7d2d22}.draw-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}.draw-meta{margin:14px 0 0;color:var(--muted);font-size:13px}.video-area{margin-top:16px}.video-btn{width:100%;min-height:48px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;font-weight:700;cursor:pointer}.video-shell{margin-top:12px;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden}.video-shell iframe{width:100%;height:100%;border:0}.history{padding:18px}.history h2{font-size:18px;margin:0 0 3px}.history .sub{font:12px "Cabin",sans-serif;color:var(--muted);margin:0 0 12px}.history-list{list-style:none;padding:0;margin:0;max-height:420px;overflow:auto}.history-list li{display:grid;grid-template-columns:28px 1fr;gap:9px;padding:10px 0;border-top:1px solid var(--line)}.history-list li:first-child{border-top:0}.history-num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--gold-soft);color:#493713;font:700 12px "Cabin",sans-serif}.history-title{font-weight:700;font-size:13px}.history-artist{display:block;color:var(--muted);font:11px "Cabin",sans-serif;margin-top:2px}.history-empty{color:var(--muted);font-size:13px;padding:20px 0;text-align:center}
+    .celebrate{position:fixed;inset:0;z-index:20;background:rgba(14,26,18,.82);display:grid;place-items:center;padding:20px}.celebrate[hidden]{display:none}.celebrate-card{position:relative;overflow:hidden;background:var(--paper);color:var(--ink);border:3px solid var(--gold);border-radius:22px;width:min(430px,100%);padding:34px 24px 26px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.35)}.celebrate-card::before,.celebrate-card::after{content:"✦  ✦  ✦";position:absolute;color:var(--gold);font-size:26px;letter-spacing:14px}.celebrate-card::before{top:8px;left:20px}.celebrate-card::after{bottom:6px;right:6px}.celebrate h2{font-size:clamp(38px,12vw,66px);color:var(--red);margin:16px 0 4px;line-height:1}.celebrate p{margin:8px 0 22px;font-size:18px}.celebrate button{min-height:52px;border:0;background:var(--green);color:#fff;border-radius:11px;padding:10px 24px;font-weight:800;cursor:pointer}.screen-reader{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:720px){.shell{padding-top:10px}.intro{align-items:start}.catalog-count{font-size:10px}.caller{grid-template-columns:1fr}.draw-stage{min-height:330px}.history-list{max-height:300px}.board-wrap{border-radius:14px}.secondary{min-height:46px}}
+    @media(max-width:520px){.language-switch{align-items:flex-start;flex-direction:column}.language-buttons{width:100%}.letters,.board{gap:5px}.cell{min-height:118px;border-radius:7px;padding:8px 5px;font-size:14px;line-height:1.18}.cell-title{-webkit-line-clamp:4;line-clamp:4}.cell .artist{display:-webkit-box;font-size:10px;margin-top:6px}.cell.free{font-size:13px}.hint{font-size:13px}}
+    @media(max-width:380px){.intro{display:block}.catalog-count{display:inline-block;margin-top:8px}.letters,.board{gap:4px}.cell{min-height:108px;font-size:12.5px}}
+    @media(prefers-reduced-motion:no-preference){.cell[aria-pressed="true"]{animation:pop .18s ease-out}.celebrate-card{animation:enter .35s cubic-bezier(.2,.8,.2,1)}@keyframes pop{50%{transform:scale(.94)}}@keyframes enter{from{transform:scale(.75);opacity:0}}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <section class="intro" aria-labelledby="pageHeading">
+    <div><h1 id="pageHeading">መዝሙር ስትሰሙ፣ ካርዱን ምልክት ያድርጉ</h1><p>ከ<a href="https://www.youtube.com/@kingdomsoundministry/videos" target="_blank" rel="noopener">Kingdom Sound</a> የYouTube ቻናል የተመረጡ መዝሙሮች። <span class="lane">Songs from the channel.</span></p></div>
+    <span class="catalog-count"><span id="catalogTotal">0</span> መዝሙሮች</span>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="የጨዋታ ሚና / Game role">
+    <button class="tab" id="playerTab" role="tab" aria-selected="true" aria-controls="playerView">የእኔ ካርድ<span class="en">MY CARD</span></button>
+    <button class="tab" id="leaderTab" role="tab" aria-selected="false" aria-controls="leaderView">መዝሙር ጠሪ<span class="en">LEADER DRAW</span></button>
+  </div>
+
+  <section class="view" id="playerView" role="tabpanel" aria-labelledby="playerTab">
+    <p class="notice"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg><span>መሪው የጠራውን መዝሙር ይንኩ። <span class="lane">Tap the song your leader calls.</span></span></p>
+    <div class="board-wrap">
+      <div class="board-head"><div class="round-status"><strong id="markCount">1</strong> / 9 ምልክት <span class="lane">marked</span></div><button class="secondary" id="newCard">አዲስ ካርድ <span class="lane">New card</span></button></div>
+      <div class="language-switch" aria-label="የመዝሙር ፊደል / Song script"><span class="language-label">የመዝሙር ፊደል <span class="lane">SONG SCRIPT</span></span><div class="language-buttons"><button id="amharicMode" type="button" aria-pressed="true">አማርኛ</button><button id="englishMode" type="button" aria-pressed="false">English letters</button></div></div>
+      <div class="letters" aria-hidden="true"><span>B</span><span>I</span><span>N</span></div>
+      <div class="board" id="board" role="grid" aria-label="የመዝሙር ቢንጎ ካርድ"></div>
+      <p class="hint">3 በተከታታይ ሲሞሉ ቢንጎ ነው። <span class="lane">3 in a row wins.</span></p>
+    </div>
+  </section>
+
+  <section class="view" id="leaderView" role="tabpanel" aria-labelledby="leaderTab" hidden>
+    <p class="notice"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 11v2a7 7 0 0 0 14 0v-2M12 17v4M8 21h8M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>አንድ ስልክ ብቻ ለመዝሙር ጥሪ ይጠቀሙ። <span class="lane">Use one phone as the caller.</span></span></p>
+    <div class="caller">
+      <div class="draw-stage">
+        <p class="draw-kicker" id="drawKicker">ለመጀመር ዝግጁ</p>
+        <h2 class="called-title empty-state" id="calledTitle">ቀጣዩን መዝሙር ይምረጡ</h2>
+        <p class="called-artist" id="calledArtist">Draw the first song</p>
+        <button class="draw-btn" id="drawSong">መዝሙር ምረጥ <span class="lane" style="color:inherit">Draw a song</span></button>
+        <p class="draw-meta"><span id="drawCount">0</span> / <span id="poolCount">0</span> ተጠርቷል <span class="lane">called</span></p>
+        <div class="video-area" id="videoArea" hidden><button class="video-btn" id="videoToggle">▶ ቪዲዮውን አጫውት <span class="lane">Play on YouTube</span></button><div class="video-shell" id="videoShell" hidden></div></div>
+      </div>
+      <aside class="history"><h2>የተጠሩ መዝሙሮች</h2><p class="sub">CALLED SONGS</p><ol class="history-list" id="historyList"><li class="history-empty">ገና መዝሙር አልተጠራም።<br>No songs called yet.</li></ol><button class="secondary" id="resetDraw" style="width:100%;margin-top:12px">አዲስ ዙር <span class="lane">Reset round</span></button></aside>
+    </div>
+  </section>
+</main>
+
+<div class="celebrate" id="celebrate" role="dialog" aria-modal="true" aria-labelledby="bingoTitle" hidden>
+  <div class="celebrate-card"><h2 id="bingoTitle">ቢንጎ!</h2><p>እንኳን ደስ አለዎት!<br><span class="lane">BINGO! You got 3 in a row.</span></p><button id="keepPlaying">ጨዋታውን ቀጥል <span class="lane" style="color:inherit">Keep playing</span></button></div>
+</div>
+<div class="screen-reader" id="live" aria-live="polite"></div>
+<script>
+  const SONGS = [{"t":"Befikreh","a":"በፍቅርህ","r":"ኑሃሚን ፍቃዱ","e":"Nuhamin Fikadu","w":"Nuhamin Fikadu","v":"Wmxoj9MQIBY"},{"t":"Kalih","a":"ቃልህ","r":"ዲቦራ ምትኩ እና ናትናኤል ቆልባይ","e":"Deborah Mitiku & Nathnael Kolbay","w":"Deborah Mitiku","v":"qVnu3Lcmf9Y"},{"t":"Yihenen Amlak","a":"ይህንን አምላክ","r":"ፍሬው ዮሴፍ","e":"Firew Yoseph","w":"Firew Yoseph","v":"D5bfPEXt6tA"},{"t":"Menfes Kidus","a":"መንፈስ ቅዱስ","r":"ሁንደፍራ ናስር","e":"Hundefira Nassir","w":"Hundefira Nassir","v":"XwFVTBQ2w7c"},{"t":"Cher New","a":"ቸር ነው","r":"እንዳልካቸው ሐዋዝ","e":"Endalkachew Hawaz","w":"Endalkachew Hawaz","v":"yJKYZXWTCfI"},{"t":"Misgana Yibza","a":"ምስጋና ይብዛ","r":"ራሔል አለማየሁ","e":"Rahel Alemayehu","v":"zu7T3JSSvO8"},{"t":"Zarem Yewedegnal","a":"ዛሬም ይወደኛል","r":"አዲሱ ተረፈ","e":"Addisu Terefe","w":"Azeb Hailu","v":"_AfhA2jPQn4"},{"t":"Ategebe Honeh","a":"አጠገቤ ሆነህ","r":"በረከት ተዘራ","e":"Bereket Tezera","w":"Endale Woldegiorgis","v":"R9vugIUTpI0"},{"t":"Eyesus Wedaje","a":"ኢየሱስ ወዳጄ","r":"ሩሐማ በፍርዱ","e":"Ruhama Befirdu","w":"Eyerusalem Negiya","v":"dmxMX-gTq6o"},{"t":"Egziabher Sireda","a":"እግዚአብሔር ሲረዳ","r":"በረከት ተዘራ","e":"Bereket Tezera","w":"Tesfaye Gabiso","v":"FKQQwQoI8Bg"},{"t":"Alwashehem","a":"አልዋሸህም","r":"በረከት ተዘራ","e":"Bereket Tezera","w":"Betelhem Tezera","v":"OO8E1SrT4o4"},{"t":"Geta Alegn","a":"ጌታ አለኝ","r":"ራሔል አለማየሁ","e":"Rahel Alemayehu","w":"Awtaru Kebede","v":"KfzWIfU14cU"},{"t":"Libe Tsena","a":"ልቤ ጽና","r":"ካሌብ መንግስቱ","e":"Kaleab Mengistu","w":"Tekeste Getinet","v":"OpCg3WVwOgg"},{"t":"Misale Yeleleh","a":"ምሳሌ የሌለህ","r":"ለሚ ተክአሊኝ","e":"Lemi Tekalign","w":"Samuel T/Michael and Kalkidan Tilahun (Lily)","v":"jbcfZepP91I"},{"t":"Amlake Mihretun","a":"አምላኬ ምሕረቱን","r":"መሳይ ብርሃኑ","e":"Mesay Birhanu","w":"Daniel Amdemichael","v":"OW6jQ1aZJ7w"},{"t":"Yelibe Yewiste","a":"የልቤ የውስጤ","r":"በርናባስ አክሊሉ","e":"Barnabas Aklile","w":"Azeb Hailu","v":"otY5Ps0fpFI"},{"t":"Awaki Neh","a":"አዋቂ ነህ","r":"መሳይ ብርሃኑ","e":"Mesay Birhanu","w":"Nazareth Amanuel Choir","v":"5L1GWfoIcyY"},{"t":"Misgana","a":"ምስጋና","r":"ረድኤት ይርጉ","e":"Rediet Yirgu","w":"Bethelhem Wolde","v":"zmxpKWPZYko"},{"t":"Ewedihalew","a":"እወድሃለሁ","r":"ዳዊት ጌታቸው","e":"Dawit Getachew","v":"Hb5ViE4_nIM"}];
+  const $ = (id) => document.getElementById(id);
+  let card = [], marks = new Set([4]), drawPool = [], called = [], current = null, videoOpen = false, celebratedLines = new Set(), language = 'am';
+
+  function shuffled(items){
+    const a = items.slice();
+    for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+    return a;
+  }
+  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function displayTitle(song){return language==='am' ? song.a : song.t;}
+  function displayCredit(song){return song.w || '';}
+  function creditLabel(){return language==='am' ? 'የመጀመሪያው መዝሙር — በቪዲዮው ርዕስ' : 'Original song by — video title';}
+  function creditMarkup(song){
+    const credit=displayCredit(song);
+    return credit ? `<span class="artist"><span class="credit-label">${esc(creditLabel())}</span>${esc(credit)}</span>` : '';
+  }
+
+  function makeCard(){
+    card = shuffled(SONGS).slice(0,8);
+    card.splice(4,0,{t:'FREE SPACE',a:'ነፃ ቦታ',r:'ነፃ',e:'FREE',v:''});
+    marks = new Set([4]); celebratedLines.clear(); renderBoard();
+    $('live').textContent='አዲስ ቢንጎ ካርድ ተዘጋጅቷል። New card ready.';
+  }
+  function renderBoard(){
+    $('board').innerHTML=card.map((song,i)=>{
+      const letter='BIN'[i%3];
+      if(i===4) return `<button class="cell free" role="gridcell" data-letter="${letter}" aria-pressed="true" aria-label="ነፃ ቦታ, Free space"><span>${language==='am'?'ነፃ ቦታ':'FREE SPACE'}</span><span class="artist">${language==='am'?'ነፃ':'FREE'}</span></button>`;
+      const title=esc(displayTitle(song)), credit=displayCredit(song);
+      return `<button class="cell" role="gridcell" data-letter="${letter}" data-index="${i}" aria-pressed="${marks.has(i)}" aria-label="${title}${credit ? `, ${creditLabel()}, ${credit}` : ''}"><span class="cell-title">${title}</span>${creditMarkup(song)}</button>`;
+    }).join('');
+    $('markCount').textContent=marks.size;
+    document.querySelectorAll('.cell[data-index]').forEach(btn=>btn.addEventListener('click',()=>toggleMark(Number(btn.dataset.index))));
+  }
+  function toggleMark(i){marks.has(i)?marks.delete(i):marks.add(i);renderBoard();checkBingo();}
+  function checkBingo(){
+    const lines=[];
+    for(let r=0;r<3;r++)lines.push([0,1,2].map(c=>r*3+c));
+    for(let c=0;c<3;c++)lines.push([0,1,2].map(r=>r*3+c));
+    lines.push([0,4,8],[2,4,6]);
+    const wins=lines.map((line,i)=>({line,i})).filter(x=>x.line.every(n=>marks.has(n)));
+    const fresh=wins.find(x=>!celebratedLines.has(x.i));
+    wins.forEach(x=>celebratedLines.add(x.i));
+    if(fresh){$('celebrate').hidden=false;$('keepPlaying').focus();}
+  }
+  function resetDraw(){
+    drawPool=shuffled(SONGS);called=[];current=null;videoOpen=false;
+    $('calledTitle').textContent='ቀጣዩን መዝሙር ይምረጡ';$('calledTitle').classList.add('empty-state');
+    $('calledArtist').textContent='Draw the first song';$('drawKicker').textContent='ለመጀመር ዝግጁ';
+    $('drawSong').disabled=false;$('drawSong').innerHTML='መዝሙር ምረጥ <span class="lane" style="color:inherit">Draw a song</span>';
+    $('drawCount').textContent='0';$('poolCount').textContent=SONGS.length;$('videoArea').hidden=true;$('videoShell').hidden=true;$('videoShell').innerHTML='';
+    renderHistory();$('live').textContent='አዲስ ዙር ተጀምሯል። New caller round started.';
+  }
+  function drawSong(){
+    if(!drawPool.length){$('drawSong').disabled=true;return;}
+    closeVideo();current=drawPool.pop();called.unshift(current);
+    $('calledTitle').textContent=displayTitle(current);$('calledTitle').classList.remove('empty-state');
+    $('calledArtist').textContent=displayCredit(current) ? `${creditLabel()}: ${displayCredit(current)}` : '';
+    $('drawKicker').textContent='የተጠራው መዝሙር';$('drawCount').textContent=called.length;
+    $('videoArea').hidden=!current.v;
+    if(!drawPool.length){$('drawSong').disabled=true;$('drawSong').textContent='ሁሉም ተጠርተዋል · All called';}
+    else {$('drawSong').innerHTML='ቀጣይ መዝሙር <span class="lane" style="color:inherit">Next song</span>';}
+    renderHistory();$('live').textContent=displayCredit(current) ? `${displayTitle(current)}, ${creditLabel()}, ${displayCredit(current)}` : displayTitle(current);
+  }
+  function renderHistory(){
+    if(!called.length){$('historyList').innerHTML='<li class="history-empty">ገና መዝሙር አልተጠራም።<br>No songs called yet.</li>';return;}
+    $('historyList').innerHTML=called.map((s,i)=>`<li><span class="history-num">${called.length-i}</span><div><span class="history-title">${esc(displayTitle(s))}</span>${displayCredit(s) ? `<span class="history-artist">${esc(creditLabel())}: ${esc(displayCredit(s))}</span>` : ''}</div></li>`).join('');
+  }
+  function closeVideo(){videoOpen=false;$('videoShell').hidden=true;$('videoShell').innerHTML='';$('videoToggle').innerHTML='▶ ቪዲዮውን አጫውት <span class="lane">Play on YouTube</span>';}
+  function toggleVideo(){
+    if(!current||!current.v)return;
+    if(videoOpen){closeVideo();return;}
+    videoOpen=true;$('videoShell').hidden=false;
+    const frame=document.createElement('iframe');frame.src='https://www.youtube.com/embed/'+encodeURIComponent(current.v)+'?autoplay=1';frame.title=displayTitle(current)+' — YouTube video';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;
+    $('videoShell').appendChild(frame);$('videoToggle').innerHTML='■ ቪዲዮውን ዝጋ <span class="lane">Close video</span>';
+  }
+  function setLanguage(next){
+    language=next;
+    $('amharicMode').setAttribute('aria-pressed',String(next==='am'));
+    $('englishMode').setAttribute('aria-pressed',String(next==='en'));
+    renderBoard();renderHistory();
+    if(current){$('calledTitle').textContent=displayTitle(current);$('calledArtist').textContent=displayCredit(current) ? `${creditLabel()}: ${displayCredit(current)}` : '';}
+    $('live').textContent=next==='am'?'የካርዱ ፊደል ወደ አማርኛ ተቀይሯል።':'Card changed to English letters.';
+  }
+  function setView(which){
+    const player=which==='player';$('playerView').hidden=!player;$('leaderView').hidden=player;
+    $('playerTab').setAttribute('aria-selected',String(player));$('leaderTab').setAttribute('aria-selected',String(!player));closeVideo();
+  }
+  $('playerTab').addEventListener('click',()=>setView('player'));
+  $('leaderTab').addEventListener('click',()=>setView('leader'));
+  $('amharicMode').addEventListener('click',()=>setLanguage('am'));
+  $('englishMode').addEventListener('click',()=>setLanguage('en'));
+  $('newCard').addEventListener('click',makeCard);$('drawSong').addEventListener('click',drawSong);$('resetDraw').addEventListener('click',resetDraw);$('videoToggle').addEventListener('click',toggleVideo);
+  $('keepPlaying').addEventListener('click',()=>{$('celebrate').hidden=true;document.querySelector('.cell[aria-pressed="true"]')?.focus();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('celebrate').hidden){$('celebrate').hidden=true;}});
+  $('catalogTotal').textContent=SONGS.length;makeCard();resetDraw();
+</script>
+</body>
+</html>
